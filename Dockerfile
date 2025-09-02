@@ -17,8 +17,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app ./app
 COPY data ./data
+COPY utils_text.py ./utils_text.py
+COPY ocr_utils.py   ./ocr_utils.py
+COPY model_infer.py ./model_infer.py
 
 ENV PORT=8080
 EXPOSE 8080
 
 CMD ["gunicorn", "-w", "2", "-k", "gthread", "-b", "0.0.0.0:8080", "app.app:app"]
+
