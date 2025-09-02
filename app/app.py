@@ -3,8 +3,8 @@ import regex as re
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
 from pdfminer.high_level import extract_text
-from ocr_utils import ocr_image
-from model_infer import suggest_reply, detect_hint
+from app.ocr_utils import ocr_image
+from app.model_infer import suggest_reply, detect_hint
 
 
 ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg"}
@@ -34,7 +34,7 @@ _model = None
 def get_model():
     global _model
     if _model is None:
-        from model_infer import load_model as _load_model
+        from app.model_infer import load_model as _load_model
         _model = _load_model()
     return _model
 
