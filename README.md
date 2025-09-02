@@ -5,6 +5,14 @@ Uma aplicação web simples (Flask + scikit-learn) que:
 - Inclui modelo treinável (TF‑IDF + Logistic Regression) e um dataset de exemplo.
 
 
+Demo local com Docker
+
+docker build -t classificador-emails .
+docker run --rm -p 8080:8080 classificador-emails
+
+    Acesse em: http://localhost:8080
+
+
 Demo local
 
     1- Instalar dependências:
