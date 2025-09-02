@@ -6,16 +6,16 @@ Uma aplicação web simples (Flask + scikit-learn) que:
 
 
 Demo local com Docker
-
+```
 docker build -t classificador-emails .
 docker run --rm -p 8080:8080 classificador-emails
-
-    Acesse em: http://localhost:8080
+```
+Acesse em: http://localhost:8080
 
 
 Demo local
 
-    1- Instalar dependências:
+1- Instalar dependências:
 ```
 sudo dnf install -y python3.11 python3.11-devel
 python3.11 -m venv .venv
@@ -23,22 +23,22 @@ source .venv/bin/activate
 pip install --upgrade pip setuptools wheel
 pip install -r requirements.txt
 ```
-    No Fedora:
+No Fedora:
 (para outros sistemas operacionais, usar o gerenciador de pacotes equivalente)
 ```
 sudo dnf install -y tesseract tesseract-langpack-eng tesseract-langpack-por 
 ```
 
-    2- Treinar o modelo:
+2- Treinar o modelo:
 ```
 python app/model_train.py
 ```
 
-    3- Rodar a aplicação
+3- Rodar a aplicação
 ```
 python app/app.py
 ```
-    Acesse em: http://localhost:7860
+Acesse em: http://localhost:7860
 
     
 Como funciona (resumo técnico):
