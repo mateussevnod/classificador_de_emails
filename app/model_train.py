@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, accuracy_score
 import joblib
 import os
-from utils_text import normalize
+from app.utils_text import normalize
 
 here = os.path.dirname(__file__)
 root = os.path.abspath(os.path.join(here, ".."))
