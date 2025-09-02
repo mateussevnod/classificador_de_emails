@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Classificador de Emails</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Classificação e Resposta de Emails</h1>
+        <p class="subtitle">
+          Faça upload de .txt/.pdf/.png/.jpg/.jpeg ou cole o texto do email. O sistema classifica e sugere resposta.
+        </p>
+      </div>
+      <button type="button" id="themeToggle" title="Alternar tema">Tema</button>
+    </header>
+
+    <section class="card">
+      <form method="POST" enctype="multipart/form-data" autocomplete="off" aria-label="Formulário de classificação">
+        <label class="label" for="email_text">Cole o texto do email</label>
+        <textarea id="email_text" name="email_text" rows="8" placeholder="Cole aqui o conteúdo do email...">{{ email_text }}</textarea>
+
+        <div class="divider">ou</div>
+
+        <label class="label" for="file_input">Envie um arquivo .txt, .pdf, .png, .jpg, .jpeg</label>
+        <input id="file_input" type="file" name="file" accept=".txt,.pdf,.png,.jpg,.jpeg"/>
+
+        <button type="submit">Classificar e Sugerir Resposta</button>
+      </form>
+    </section>
+
+    {% if error %}
+    <section class="card error" role="alert" aria-live="polite">
+      <h3>Erro</h3>
+      <p>{{ error }}</p>
+    </section>
+    {% endif %}
+
+    {% if result %}
+    <section class="card result" aria-live="polite">
+      <h3 style="margin-top:0">Resultado</h3>
+      <div class="grid">
+        <div>
+          <div class="pill {{ 'productive' if result.category == 'Produtivo' else 'unproductive' }}">
+            {{ result.category }}
+          </div>
+        </div>
+        <div>
+          <h4 style="margin:.2rem 0 .4rem 0">Resposta sugerida</h4>
+          <p class="reply">{{ result.reply }}</p>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
+    <footer>
+      Desenvolvido por <strong>Mateus Conte</strong> • 
+      <a href="https://github.com/mateussevnod" target="_blank">GitHub</a>
+    </footer>
+  </div>
+
+  <script>
+    (function(){
+      const root = document.documentElement;
+      const btn = document.getElementById('themeToggle');
+      const saved = localStorage.getItem('autou-theme');
+      if (saved === 'light') root.classList.add('light');
+      btn?.addEventListener('click', () => {
+        root.classList.toggle('light');
+        localStorage.setItem('autou-theme', root.classList.contains('light') ? 'light' : 'dark');
+      });
+    })();
+
+    (function(){
+      const ta = document.getElementById('email_text');
+      const fi = document.getElementById('file_input');
+
+      fi?.addEventListener('change', () => {
+        if (fi.files && fi.files.length > 0) {
+          ta.value = '';
+        }
+      });
+      ta?.addEventListener('input', () => {
+        if (ta.value.trim().length > 0) {
+          fi.value = '';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
