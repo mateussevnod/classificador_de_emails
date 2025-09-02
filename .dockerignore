@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.venv/
+.env
+.git
+.gitignore
+app/uploads/*
+!app/uploads/.gitkeep
+
